@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    ports:
+      - 5432:5432
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - 1313:8080
+  mailpit:
+    image: 'axllent/mailpit:latest'
+    restart: unless-stopped
+    ports:
+      - '1025:1025'
+      - '1314:8025'
